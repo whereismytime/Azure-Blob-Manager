@@ -1,0 +1,217 @@
+/* =============================== */
+/* 🌌 Global Styles / Глобальні стилі */
+/* =============================== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
+  background: linear-gradient(-45deg, #1e1e1e, #111, #2a2a2a, #000);
+  background-size: 400% 400%;
+  animation: gradientFlow 15s ease infinite;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* =============================== */
+/* 📦 Main Container / Основний контейнер */
+/* =============================== */
+#root > div {
+  max-width: 960px;
+  width: 90%;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 3rem 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 60px rgba(0, 255, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.7rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(to right, #00ffff, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =============================== */
+/* 🎛 UI Elements / UI-елементи */
+/* =============================== */
+.container-selector {
+  margin-bottom: 1.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.container-selector select {
+  width: fit-content;
+}
+
+select, button {
+  background: #222;
+  color: #eee;
+  border: 1px solid #444;
+  padding: 0.6rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+button:hover {
+  background: #00ffff;
+  color: #000;
+}
+button:disabled {
+  background: #333;
+  color: #777;
+  cursor: not-allowed;
+}
+
+/* =============================== */
+/* 📤 Upload Dropzone / Зона завантаження */
+/* =============================== */
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.drop-zone {
+  border: 2px dashed #00ffff;
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  width: 100%;
+  background: #111;
+  color: #00ffff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-bottom: 1rem;
+  max-width: 600px;
+}
+.drop-zone:hover {
+  background: #181818;
+}
+.drop-zone .icon {
+  font-size: 1.3rem;
+}
+.drop-zone .hint {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* =============================== */
+/* 🧩 File Previews / Превʼю файлів */
+/* =============================== */
+.preview-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+th, td {
+  padding: 0.8rem;
+  text-align: left;
+  border-bottom: 1px solid #333;
+  font-size: 0.95rem;
+}
+img, audio, video {
+  border-radius: 6px;
+}
+audio, video {
+  width: 120px;
+  background: #000;
+  border-radius: 8px;
+}
+
+/* =============================== */
+/* 🪟 Modal Preview / Модальне вікно */
+/* =============================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.modal-content {
+  background: none;
+  padding: 0;
+  border: none;
+  max-width: 95vw;
+  max-height: 95vh;
+  overflow: auto;
+}
+
+/* =============================== */
+/* 🖼️ Preview Wrapper / Обгортка превʼю */
+/* =============================== */
+.preview-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.preview-media {
+  width: 100%;
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 12px;
+  display: block;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
+  object-fit: contain;
+}
+
+.audio-player {
+  width: 400px;
+  max-width: 90%;
+  border-radius: 10px;
+}
+
+/* =============================== */
+/* ❌ Close Button / Кнопка закриття */
+/* =============================== */
+.close-btn-inside {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #88888841;
+  color: #000000b9;
+  border: none;
+  border-radius: 50%;
+  padding: 0.5rem 0.7rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease;
+}
+.close-btn-inside:hover {
+  background: #aaa;
+  transform: translate(-50%, -50%) scale(1.1);
+}
