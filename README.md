@@ -1,68 +1,56 @@
-# Azure Blob Manager – Frontend (React + Vite)
+# ⚡ Azure Blob Manager — Frontend (React + Vite)
 
-## 🧠 Architecture
+![Preview](public/preview.png)
 
-- React 18 (Vite)
-- Axios for API communication
-- Component-based modular design
-- Centralized `blobService.js` for API
-- Responsive dark UI with animated gradients
-- Drag-and-drop file input
+## ✨ Features (Client Side)
 
----
-
-## ✨ Features
-
-- Upload files to Azure Blob (via backend)
-- View image/audio/video previews
+- Upload files via drag & drop or manual selection
+- Image, audio and video previews
 - Delete files with one click
-- Download any blob
-- Select container dynamically
-- Modal preview player
-- Full CI/CD with GitHub Actions
+- Switch between containers in a dropdown
+- Responsive cyberpunk UI with dark gradient theme
+- Modal previews with playback support
+- Axios-powered modular API service
 
 ---
 
-## ⚙️ Deployment Instructions (Azure Static Web App)
+## 🧠 Overview
 
-1. Push to GitHub
-2. Static Web App picks up changes via GitHub Actions
-3. Workflow builds project and deploys `dist/` folder
+This is the **frontend** for a full-stack Azure Blob Storage manager.  
+Built with **React** (via **Vite**) and deployed via **Azure Static Web Apps** + **GitHub Actions**.
+
+Clean UI, production-ready design, and tight integration with a custom ASP.NET Core Web API backend.
 
 ---
 
-## 🌍 Environment Logic
+## 🔌 Architecture
 
-```js
-const api = import.meta.env.PROD
-  ? 'https://your-backend.azurewebsites.net/api/BlobStorage'
-  : '/api/BlobStorage'; // for local proxy
+- **React** frontend + modular **Axios** service
+- Flexible dropdown logic to switch between blob containers
+- Preview modal supports image/audio/video render logic
+- Absolute API URLs in production (CORS compliant)
+- Deployed via GitHub Actions (`azure-static-web-apps-*`)
+
+---
+
+## 🚀 Local Development
+
+```bash
+npm install
+npm run dev
 ```
 
-Make sure `vite.config.js` includes:
+---
 
-```js
-server: {
-  proxy: {
-    '/api': 'https://localhost:5001'
-  }
-}
-```
+## 🌐 Live Preview
+
+[https://kind-sky-0ebf70103.6.azurestaticapps.net](https://kind-sky-0ebf70103.6.azurestaticapps.net)
 
 ---
 
-## 🔄 API Integration Flow
+## 🧩 Extensibility
 
-1. Select container → call `GET /api/GetContainers`
-2. Fetch files via `GET /api/GetBlobFiles`
-3. Preview/download/delete calls backend
-4. Backend interacts with Azure Blob Storage
-
----
-
-## 🚀 Extensibility Ideas
-
-- Add multi-file upload
-- Add preview slider for images
-- Add login/auth with Azure AD or Firebase
-- Add progress bars for upload/download
+You can easily:
+- Add new preview types (e.g. PDF, ZIP)
+- Enable user authentication (Azure AD, etc.)
+- Localize UI with i18n
