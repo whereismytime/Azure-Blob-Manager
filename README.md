@@ -1,64 +1,108 @@
 
-# Azure Blob Manager
+## 💡 Features (Client Side)
 
-**Azure Blob Manager** is a React-based web application designed to interact with Azure Blob Storage. It allows users to upload, view, download, and delete files from Azure Blob Containers.
+- 📂 Upload files with drag & drop or manual selection
+- 🖼 Live previews of images, videos and audio
+- ⏬ File download with one click
+- ❌ Delete files from Azure Blob Storage
+- 📦 Container selection with live update
+- 🌘 Responsive dark UI with animated gradient
+- 🔍 Modal preview with media player support
+- ⚙️ Axios + modular API layer
 
-## Features
+## 📚 Overview
 
-- 🎥 **Preview Files**: View images, audio, and video files before downloading.
-- 📤 **Drag & Drop Upload**: Easily upload files using the drag-and-drop feature.
-- 📂 **Container Management**: Choose containers and manage their files with ease.
-- 🧹 **Delete Files**: Remove files from Azure Blob Storage.
+This frontend is a user-friendly interface built with **React + Vite** to interact with Azure Blob Storage.
+It supports full upload → preview → download → delete cycle. Clean, modern UI with a light cyberpunk touch.
+Connected to a production-level ASP.NET Core backend. Deployed on Azure Static Web App with GitHub Actions.
 
-## Getting Started
 
-To get started with the project locally, follow these steps:
+# 🌐 Azure Blob Manager — Frontend (React + Vite)
 
-### 1. Clone the repository
+This is the **frontend** part of the Azure Blob Manager project — a modern, responsive interface for managing files in Azure Blob Storage.  
+Built with **React** (via **Vite**) and deployed via **Azure Static Web Apps** + **GitHub Actions**.
 
-```bash
-git clone https://github.com/yourusername/azure-blob-manager.git
+---
+
+## ⚙️ Features
+
+- 🔄 Upload, download, preview, and delete files in Azure Blob containers
+- 📂 Drag-and-drop upload with previews for images, video, and audio
+- 🎨 Smooth animated dark theme with gradient background
+- 🧠 Smart file-type handling for preview modals
+- 📁 Container selection dropdown synced to backend
+- 🚀 Deployed to Azure Static Web App with CI/CD
+
+---
+
+## 📁 Project Structure
+
+```
+azure-blob-manager/
+├── public/
+├── src/
+│   ├── components/
+│   │   └── UploadForm.jsx, FileTable.jsx, ContainerSelector.jsx, PreviewModal.jsx
+│   ├── services/
+│   │   └── blobService.js
+│   ├── App.jsx
+│   ├── main.jsx
+├── dist/ ← production build (via Vite)
 ```
 
-### 2. Install Dependencies
+---
 
-Install the necessary dependencies using `npm` or `yarn`:
+## 🐛 Common Issues & Fixes
 
+### 🔗 CORS issue
+Make sure backend has:
+```csharp
+builder.Services.AddCors(...);
+app.UseCors("AllowAll");
+```
+
+### 🌍 Absolute URL bug in production
+Change `blobService.js` to use **relative** paths like:
+```js
+const api = '/api/BlobStorage';
+```
+
+### 🧪 Azure Static Web App didn’t auto-refresh after push
+➡️ Run a **manual workflow dispatch** in GitHub Actions  
+➡️ Or force rebuild: change something like a comment, commit, push.
+
+---
+
+## ☁️ Deployment to Azure Static Web App
+
+### 1. GitHub Action setup
+Check `.github/workflows/azure-static-web-apps.yml`:
+
+```yaml
+app_location: "/" 
+output_location: "dist"
+```
+
+### 2. Build
 ```bash
 npm install
+npm run build
 ```
 
-or
+### 3. Push to master (or trigger manually)
+Deployment will upload the content from `dist/`.
 
-```bash
-yarn install
-```
+---
 
-### 3. Run the Development Server
+## 📸 Screenshots
 
-To start the development server:
+> See real-time preview in `PreviewModal` + animated drag & drop zone.
 
-```bash
-npm run dev
-```
+---
 
-or
+## 📦 Tech Stack
 
-```bash
-yarn dev
-```
-
-### 4. Deployment
-
-You can deploy this project to **Azure Web App** or any cloud platform of your choice. Follow the respective documentation for deployment.
-
-## Technologies Used
-
-- **React**: For building the front-end interface.
-- **Vite**: For bundling and serving the app.
-- **Azure Blob Storage**: For storing and managing files in the cloud.
-- **Axios**: For making HTTP requests to the backend API.
-
-## License
-
-This project is licensed under the MIT License.
+- React + Vite
+- Azure Static Web Apps
+- GitHub Actions
+- HTML/CSS/JS (fully custom)
