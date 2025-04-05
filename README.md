@@ -1,108 +1,68 @@
+# Azure Blob Manager – Frontend (React + Vite)
 
-## 💡 Features (Client Side)
+## 🧠 Architecture
 
-- 📂 Upload files with drag & drop or manual selection
-- 🖼 Live previews of images, videos and audio
-- ⏬ File download with one click
-- ❌ Delete files from Azure Blob Storage
-- 📦 Container selection with live update
-- 🌘 Responsive dark UI with animated gradient
-- 🔍 Modal preview with media player support
-- ⚙️ Axios + modular API layer
-
-## 📚 Overview
-
-This frontend is a user-friendly interface built with **React + Vite** to interact with Azure Blob Storage.
-It supports full upload → preview → download → delete cycle. Clean, modern UI with a light cyberpunk touch.
-Connected to a production-level ASP.NET Core backend. Deployed on Azure Static Web App with GitHub Actions.
-
-
-# 🌐 Azure Blob Manager — Frontend (React + Vite)
-
-This is the **frontend** part of the Azure Blob Manager project — a modern, responsive interface for managing files in Azure Blob Storage.  
-Built with **React** (via **Vite**) and deployed via **Azure Static Web Apps** + **GitHub Actions**.
+- React 18 (Vite)
+- Axios for API communication
+- Component-based modular design
+- Centralized `blobService.js` for API
+- Responsive dark UI with animated gradients
+- Drag-and-drop file input
 
 ---
 
-## ⚙️ Features
+## ✨ Features
 
-- 🔄 Upload, download, preview, and delete files in Azure Blob containers
-- 📂 Drag-and-drop upload with previews for images, video, and audio
-- 🎨 Smooth animated dark theme with gradient background
-- 🧠 Smart file-type handling for preview modals
-- 📁 Container selection dropdown synced to backend
-- 🚀 Deployed to Azure Static Web App with CI/CD
-
----
-
-## 📁 Project Structure
-
-```
-azure-blob-manager/
-├── public/
-├── src/
-│   ├── components/
-│   │   └── UploadForm.jsx, FileTable.jsx, ContainerSelector.jsx, PreviewModal.jsx
-│   ├── services/
-│   │   └── blobService.js
-│   ├── App.jsx
-│   ├── main.jsx
-├── dist/ ← production build (via Vite)
-```
+- Upload files to Azure Blob (via backend)
+- View image/audio/video previews
+- Delete files with one click
+- Download any blob
+- Select container dynamically
+- Modal preview player
+- Full CI/CD with GitHub Actions
 
 ---
 
-## 🐛 Common Issues & Fixes
+## ⚙️ Deployment Instructions (Azure Static Web App)
 
-### 🔗 CORS issue
-Make sure backend has:
-```csharp
-builder.Services.AddCors(...);
-app.UseCors("AllowAll");
-```
+1. Push to GitHub
+2. Static Web App picks up changes via GitHub Actions
+3. Workflow builds project and deploys `dist/` folder
 
-### 🌍 Absolute URL bug in production
-Change `blobService.js` to use **relative** paths like:
+---
+
+## 🌍 Environment Logic
+
 ```js
-const api = '/api/BlobStorage';
+const api = import.meta.env.PROD
+  ? 'https://your-backend.azurewebsites.net/api/BlobStorage'
+  : '/api/BlobStorage'; // for local proxy
 ```
 
-### 🧪 Azure Static Web App didn’t auto-refresh after push
-➡️ Run a **manual workflow dispatch** in GitHub Actions  
-➡️ Or force rebuild: change something like a comment, commit, push.
+Make sure `vite.config.js` includes:
+
+```js
+server: {
+  proxy: {
+    '/api': 'https://localhost:5001'
+  }
+}
+```
 
 ---
 
-## ☁️ Deployment to Azure Static Web App
+## 🔄 API Integration Flow
 
-### 1. GitHub Action setup
-Check `.github/workflows/azure-static-web-apps.yml`:
-
-```yaml
-app_location: "/" 
-output_location: "dist"
-```
-
-### 2. Build
-```bash
-npm install
-npm run build
-```
-
-### 3. Push to master (or trigger manually)
-Deployment will upload the content from `dist/`.
+1. Select container → call `GET /api/GetContainers`
+2. Fetch files via `GET /api/GetBlobFiles`
+3. Preview/download/delete calls backend
+4. Backend interacts with Azure Blob Storage
 
 ---
 
-## 📸 Screenshots
+## 🚀 Extensibility Ideas
 
-> See real-time preview in `PreviewModal` + animated drag & drop zone.
-
----
-
-## 📦 Tech Stack
-
-- React + Vite
-- Azure Static Web Apps
-- GitHub Actions
-- HTML/CSS/JS (fully custom)
+- Add multi-file upload
+- Add preview slider for images
+- Add login/auth with Azure AD or Firebase
+- Add progress bars for upload/download
